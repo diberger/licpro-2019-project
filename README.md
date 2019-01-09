@@ -1,2 +1,4 @@
-# licpro-2019-project
-Projet de JS
+# Projet JS
+
+* BOREL BAPTISTE
+* BERGER DIMITRI
