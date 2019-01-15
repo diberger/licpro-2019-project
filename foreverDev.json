@@ -1,0 +1,8 @@
+{
+  // Comments are supported
+  "uid": "app",
+  "append": true,
+  "watch": true,
+  "script": "back/app.js",
+  "sourceDir": "/home/etud/diberger/Saison3/jscroupt/licpro-2019-project/"
+}

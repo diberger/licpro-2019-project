@@ -5,7 +5,7 @@ class Netflix {
     }
 
     getSerie(id) {
-        return this.series.get(id);
+        return this.series[id];
     }
 
     addSerie(serie) {
@@ -14,8 +14,10 @@ class Netflix {
     }
 
     removeSerie(serie) {
-        this.series.delete(serie);
+        this.series.splice(serie, 1);
         return this;
     }
 
 }
+
+module.exports = Netflix;

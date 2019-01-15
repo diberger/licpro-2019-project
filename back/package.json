@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/diberger/licpro-2019-project#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "forever": "^0.15.3"
   }

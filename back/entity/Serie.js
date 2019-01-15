@@ -7,3 +7,5 @@ class Serie {
   }
 
 }
+
+module.exports = Serie;

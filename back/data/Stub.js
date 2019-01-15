@@ -1,9 +1,11 @@
-class Stub{
+let Netflix = require('../entity/Netflix');
+let Serie = require('../entity/Serie');
 
+class Stub{
 
     constructor(){
         this.test = "";
-    };
+    }
 
     loadNetflix(){
 
@@ -12,10 +14,9 @@ class Stub{
         netflix.addSerie(new Serie('GOT','S01E01',8));
         netflix.addSerie(new Serie('Les experts','S78E47',1));
         netflix.addSerie(new Serie('Kaamelott','S01E01',10));
-
         return netflix;
     }
 
 }
 
-exports.modules = Stub;
+module.exports = Stub;
