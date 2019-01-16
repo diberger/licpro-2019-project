@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/diberger/licpro-2019-project#readme",
   "dependencies": {
+    "aguid": "^2.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "forever": "^0.15.3"
+    "forever": "^0.15.3",
+    "file-system": "^2.2.2"
   }
 }

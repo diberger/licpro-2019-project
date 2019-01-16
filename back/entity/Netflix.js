@@ -18,6 +18,12 @@ class Netflix {
         return this;
     }
 
+    updateSerie(id, serie) {
+        this.getSerie(id).name = serie.name;
+        this.getSerie(id).code = serie.code;
+        this.getSerie(id).mark = serie.mark;
+    }
+
 }
 
 module.exports = Netflix;

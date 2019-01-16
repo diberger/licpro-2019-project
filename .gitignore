@@ -2,3 +2,4 @@ node_modules/
 .idea/
 ./back/.idea
 ./back/node_modules
+/back/data/
