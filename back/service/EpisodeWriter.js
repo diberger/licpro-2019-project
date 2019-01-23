@@ -1,17 +1,8 @@
 let fs = require('file-system');
 
-class EpisodeWriter {
+let writeEpisode = function (episode) {
+    let episodeJSON = JSON.stringify(episode);
+    fs.writeFile('data/' + episode.id + '.json', episodeJSON);
+};
 
-    constructor() {
-    }
-
-    write(serie) {
-
-        let serieJSON = JSON.stringify(serie);
-        fs.writeFile('data/' + serie.id + '.json', serieJSON);
-    }
-
-}
-
-
-module.exports = EpisodeWriter;
+module.exports = writeEpisode;

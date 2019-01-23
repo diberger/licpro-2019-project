@@ -1,6 +1,6 @@
 var aguid = require('aguid');
 
-class Serie {
+class Episode {
 
     constructor(name, code, mark) {
         this.id = aguid();
@@ -11,4 +11,4 @@ class Serie {
 
 }
 
-module.exports = Serie;
+module.exports = Episode;

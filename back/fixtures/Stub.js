@@ -1,5 +1,5 @@
 let Netflix = require('../entity/Netflix');
-let Serie = require('../entity/Serie');
+let Serie = require('../entity/Episode');
 
 class Stub{
 
