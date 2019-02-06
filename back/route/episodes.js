@@ -15,7 +15,6 @@ let readAll = require('../service/NetflixReader');
 let deleteEpisode = require('../service/EpisodeDeleter');
 
 router.post('/', function (req, res) {
-    console.log(req.body);
     let episode = new Episode(req.body.name, req.body.code, req.body.mark);
     console.log(req.body.name,req.body.code,episode);
     netflix.addSerie(episode);

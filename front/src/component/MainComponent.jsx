@@ -24,7 +24,6 @@ export default class MainComponent extends Component {
                         isLoaded: true,
                         episodes: result
                     }));
-                    console.log(this.state);
                 },
                 (error) => {
                     this.setState({
@@ -49,8 +48,8 @@ export default class MainComponent extends Component {
     removeEpisode(idEpisode) {
         this.setState((state) => {
             let episodes = state.episodes;
-            episodes.forEach(function(index, val){
-                if(val.id === idEpisode){
+            episodes.forEach(function (val, index) {
+                if (val.id === idEpisode) {
                     episodes.splice(index, 1);
                 }
             });
@@ -66,7 +65,7 @@ export default class MainComponent extends Component {
             <div className="row">
                 <div className="col-md-6">
                     <p>Liste des episodes vu</p>
-                    <TableComponent episodes={this.state.episodes} removeEpisode={this.removeEpisode} />
+                    <TableComponent episodes={this.state.episodes} removeEpisode={this.removeEpisode}/>
                 </div>
                 <div className="col-md-6">
                     <p>Ajouter un épisode</p>

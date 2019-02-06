@@ -3,7 +3,7 @@ import axios from 'axios'
 export default class FormComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {nom: ''};
+        this.state = {nom: '', code: '', mark: ''};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,6 +19,8 @@ export default class FormComponent extends Component {
                 break;
             case 'inputMark' :
                 this.setState({mark: event.target.value});
+                break;
+            default:
                 break;
         }
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'jquery/dist/jquery.min'
 import 'popper.js/dist/popper.min'
