@@ -1,10 +1,10 @@
 let express = require('express');
 let router = express.Router();
-let bodyParser = require('body-parser');
-let urlencodedParser = bodyParser.urlencoded({extended: false});
+
 
 //let Stub = require('../fixtures/Stub');
 //let netflix = new Stub();
+
 
 let Episode = require('../entity/Episode');
 let NetFlix = require('../entity/Netflix');
@@ -14,15 +14,16 @@ let writeEpisode = require('../service/EpisodeWriter');
 let readAll = require('../service/NetflixReader');
 let deleteEpisode = require('../service/EpisodeDeleter');
 
-router.post('/', urlencodedParser, function (req, res) {
+router.post('/', function (req, res) {
+    console.log(req.body);
     let episode = new Episode(req.body.name, req.body.code, req.body.mark);
     console.log(req.body.name,req.body.code,episode);
     netflix.addSerie(episode);
     writeEpisode(episode);
-    res.send(req.body.name);
+    res.send(JSON.stringify(episode));
 });
 
-router.put('/:id', urlencodedParser, function (req, res) {
+router.put('/:id', function (req, res) {
     let episode = netflix.getSerie(req.params.id);
     netflix.updateSerie(req.params.id, req.body);
     writeEpisode(episode);
@@ -40,7 +41,7 @@ router.get('/:id', function (req, res) {
 
 router.get('/', function (req, res) {
     readAll().then(function (netflix) {
-        res.send(JSON.stringify(netflix));
+        res.send(JSON.stringify(netflix.series));
     }).catch(function (value) {
         console.log(value)
     });
@@ -48,9 +49,15 @@ router.get('/', function (req, res) {
 
 router.delete('/delete/:id', function (req, res) {
     readAll().then(function (netflix) {
-        let fileName = 'data/' + netflix.getSerie(req.params.id).id + '.json';
-        deleteEpisode(fileName);
-        res.send(fileName + ' was deleted');
+        let episode = netflix.getSerie(req.params.id);
+        console.log(episode);
+        if(episode !== null && episode !== undefined) {
+            let fileName = 'data/' + episode.id + '.json';
+            deleteEpisode(fileName);
+            res.send(fileName + ' was deleted');
+        } else {
+            res.send("Echec de suppresion");
+        }
     }).catch(function (value) {
         console.log(value)
     });

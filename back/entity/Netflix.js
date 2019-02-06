@@ -5,7 +5,14 @@ class Netflix {
     }
 
     getSerie(id) {
-        return this.series[id];
+        let episode;
+        this.series.forEach(e => {
+           if(e.id === id) {
+               episode = e;
+               return;
+           }
+        });
+        return episode;
     }
 
     addSerie(serie) {

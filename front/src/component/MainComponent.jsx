@@ -1,14 +1,17 @@
-'use strict';
-import React, { Component } from 'react';
-import ItemComponent from './ItemComponent.jsx';
+import React, {Component} from 'react';
+import TableComponent from "./TableComponent";
+import FormComponent from "./FormComponent";
+
 export default class MainComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            episodes: []
         };
+        this.addEpisode = this.addEpisode.bind(this);
+        this.removeEpisode = this.removeEpisode.bind(this);
     }
 
     componentDidMount() {
@@ -16,14 +19,13 @@ export default class MainComponent extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
+                    this.setState((state) => ({
+                        ...state,
                         isLoaded: true,
-                        items: result
-                    });
+                        episodes: result
+                    }));
+                    console.log(this.state);
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -33,32 +35,44 @@ export default class MainComponent extends Component {
             )
     }
 
-    render() {
-        const { error, isLoaded, items } = this.state;
-        let result;
-        if(items.series !== undefined) {
-            result = items.series.map(item => {
-                return <ItemComponent episode={item}/>
+    addEpisode(episode) {
+        this.setState((state) => {
+            let episodes = state.episodes;
+            episodes.push(episode);
+            return {
+                ...state,
+                episodes: episodes
+            }
+        });
+    }
+
+    removeEpisode(idEpisode) {
+        this.setState((state) => {
+            let episodes = state.episodes;
+            episodes.forEach(function(index, val){
+                if(val.id === idEpisode){
+                    episodes.splice(index, 1);
+                }
             });
-        }
-        let html = "";
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                <table className="table table-bordered">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Code</th>
-                        <th>Note</th>
-                    </tr>
-                    <tbody>
-                    {result}
-                    </tbody>
-                </table>
-            );
-        }
+            return {
+                ...state,
+                episodes: episodes
+            }
+        });
+    }
+
+    render() {
+        return (
+            <div className="row">
+                <div className="col-md-6">
+                    <p>Liste des episodes vu</p>
+                    <TableComponent episodes={this.state.episodes} removeEpisode={this.removeEpisode} />
+                </div>
+                <div className="col-md-6">
+                    <p>Ajouter un épisode</p>
+                    <FormComponent addEpisode={this.addEpisode}/>
+                </div>
+            </div>
+        );
     }
 }
