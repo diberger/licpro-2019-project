@@ -115,7 +115,7 @@ export default class FormComponent extends Component {
                                name="mark" placeholder="Note /10" value={this.state.mark} onChange={this.handleChange} required={true}/>
                         <small id="markHelp" className="form-text text-muted">Une note sur 10</small>
                     </div>
-                    <input type="submit" value="Submit"/>
+                    <input type="submit" value={this.props.isUpdatePage ? "Modifier" : "Ajouter"}/>
                     <div className={this.state.error ? 'alert alert-danger' : ''}>
                         {this.state.error}
                     </div>
