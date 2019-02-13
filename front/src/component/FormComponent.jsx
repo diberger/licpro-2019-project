@@ -4,7 +4,7 @@ import axios from 'axios'
 export default class FormComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {nom: '', code: '', mark: ''};
+        this.state = {nom: '', code: '', mark: '', error: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -49,6 +49,19 @@ export default class FormComponent extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        if(this.state.nom.length <= 0 || this.state.code <= 0 || parseInt(this.state.mark) < 0 || parseInt(this.state.mark) > 10){
+            this.setState((state) => ({
+                ...state,
+                error: "Au-moins un des champs n'est pas bon, lequel ? Je sais pas ;)",
+            }));
+            return;
+        }else {
+            this.setState((state) => ({
+                ...state,
+                error: "",
+            }));
+        }
+
 
         if (this.props.isUpdatePage && this.props.episodeId) {
             axios.put('http://localhost:5000/episodes/'+ this.props.episodeId, {
@@ -87,22 +100,25 @@ export default class FormComponent extends Component {
                         <label htmlFor="inputName">Name</label>
                         <input type="text" className="form-control" id="inputName" aria-describedby="nameHelp"
                                name="name" placeholder="Nom" value={this.state.nom}
-                               onChange={this.handleChange}/>
+                               onChange={this.handleChange} required={true}/>
                         <small id="nameHelp" className="form-text text-muted">Le nom de la série</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputCode">Code</label>
                         <input type="text" className="form-control" id="inputCode" aria-describedby="codeHelp"
-                               name="code" placeholder="S01E01" value={this.state.code} onChange={this.handleChange}/>
+                               name="code" placeholder="S01E01" value={this.state.code} onChange={this.handleChange} required={true}/>
                         <small id="codeHelp" className="form-text text-muted">Le code de la série</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputMark">Note</label>
                         <input type="number" className="form-control" id="inputMark" aria-describedby="markHelp"
-                               name="mark" placeholder="Note /10" value={this.state.mark} onChange={this.handleChange}/>
+                               name="mark" placeholder="Note /10" value={this.state.mark} onChange={this.handleChange} required={true}/>
                         <small id="markHelp" className="form-text text-muted">Une note sur 10</small>
                     </div>
                     <input type="submit" value="Submit"/>
+                    <div className={this.state.error ? 'alert alert-danger' : ''}>
+                        {this.state.error}
+                    </div>
                 </form>
             </div>
         );

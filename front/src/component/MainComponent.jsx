@@ -63,7 +63,8 @@ export default class MainComponent extends Component {
             });
             return {
                 ...state,
-                episodes: episodes
+                episodes: episodes,
+                isUpdatePage : false
             }
         });
     }
