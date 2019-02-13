@@ -26,9 +26,11 @@ class Netflix {
     }
 
     updateSerie(id, serie) {
-        this.getSerie(id).name = serie.name;
-        this.getSerie(id).code = serie.code;
-        this.getSerie(id).mark = serie.mark;
+        let episode = this.getSerie(id);
+        episode.name = serie.name;
+        episode.code = serie.code;
+        episode.mark = serie.mark;
+        return episode;
     }
 
 }

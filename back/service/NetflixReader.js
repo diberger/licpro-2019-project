@@ -3,13 +3,17 @@ let NetFlix = require('../entity/Netflix');
 
 function readOne(fileName) {
     return new Promise((resolve, reject) => {
-        fs.readFile('data/' + fileName, 'utf8', function (err, data) {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(JSON.parse(data));
-        });
+        if (fileName.split('.').pop() === "json") {
+            fs.readFile('data/' + fileName, 'utf8', function (err, data) {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(JSON.parse(data));
+            });
+        } else {
+            resolve(undefined);
+        }
     });
 }
 
@@ -25,7 +29,12 @@ function readAll() {
                 return readOne(fileName);
             });
             Promise.all(promisesRead).then((episodes) => {
-                episodes.forEach(e => netflix.addSerie(e));
+                episodes.forEach(e => {
+                    console.log(e);
+                    if (e !== undefined) {
+                        netflix.addSerie(e)
+                    }
+                });
                 resolve(netflix);
             }).catch((err) => reject(err));
         });

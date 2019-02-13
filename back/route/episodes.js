@@ -23,10 +23,13 @@ router.post('/', function (req, res) {
 });
 
 router.put('/:id', function (req, res) {
-    let episode = netflix.getSerie(req.params.id);
-    netflix.updateSerie(req.params.id, req.body);
-    writeEpisode(episode);
-    res.send(req.body.name);
+    readAll().then(function (netflix) {
+        let episode = netflix.updateSerie(req.params.id, req.body);
+        writeEpisode(episode);
+        res.send(JSON.stringify(episode));
+    }).catch(function (value) {
+        console.log(value)
+    });
 });
 
 router.get('/:id', function (req, res) {
